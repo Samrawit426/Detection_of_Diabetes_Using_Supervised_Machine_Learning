@@ -4,8 +4,14 @@ import joblib
 import pandas as pd
 
 # Load preprocessing pipeline and model
-pipeline = joblib.load("src/preprocessing_pipeline.pkl")
-model = joblib.load("models/random_forest_model.pkl")
+import os
+import joblib
+
+# Add this to handle paths correctly on the cloud server
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+pipeline_path = os.path.join(BASE_DIR, "src", "preprocessing_pipeline.pkl")
+pipeline = joblib.load(pipeline_path)
+model = joblib.load(os.path.join(BASE_DIR, "models", "random_forest_model.pkl"))
 
 st.title("🩺 Diabetes Prediction System")
 st.write("Enter patient medical details to predict diabetes risk.")
